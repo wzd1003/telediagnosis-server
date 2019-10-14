@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.mapper.DoctorMapper">
+    <select id="getAllNations" resultType="cn.edu.bean.Nation">
+        select * from nation;
+    </select>
+    <select id="getAllPolitics" resultType="cn.edu.bean.PoliticsStatus">
+        select * from politicsstatus;
+    </select>
+    <insert id="addDoctor" parameterType="cn.edu.bean.Doctor">
+            insert into doctor (name, gender,
+      birthday, idCard, wedlock, nationId,
+      nativePlace, politicId, email,
+      phone, address, departmentId,
+      jobLevelId, posId, engageForm,
+      tiptopDegree, specialty, school,
+      beginDate,workID,
+      contractTerm, conversionTime,
+      beginContract, endContract, workAge
+      )
+    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
+      #{birthday,jdbcType=DATE}, #{idCard,jdbcType=CHAR}, #{wedlock,jdbcType=CHAR}, #{nationId,jdbcType=INTEGER},
+      #{nativePlace,jdbcType=VARCHAR}, #{politicId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER},
+      #{jobLevelId,jdbcType=INTEGER}, #{posId,jdbcType=INTEGER}, #{engageForm,jdbcType=VARCHAR},
+      #{tiptopDegree,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
+      #{beginDate,jdbcType=DATE},#{workID,jdbcType=BIGINT},
+      #{contractTerm,jdbcType=BIGINT}, #{conversionTime,jdbcType=DATE},
+      #{beginContract,jdbcType=DATE}, #{endContract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}
+      )
+    </insert>
+    <select id="getMaxWorkID" resultType="Long">
+        SELECT workID from doctor where id=(select max(id) from doctor)
+    </select>
+    <resultMap id="BaseResultMap" type="cn.edu.bean.Doctor">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="idCard" property="idCard"/>
+        <result column="wedlock" property="wedlock"/>
+        <result column="nationId" property="nationId"/>
+        <result column="nativePlace" property="nativePlace"/>
+        <result column="politicId" property="politicId"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="departmentId" property="departmentId"/>
+        <result column="jobLevelId" property="jobLevelId"/>
+        <result column="posId" property="posId"/>
+        <result column="engageForm" property="engageForm"/>
+        <result column="tiptopDegree" property="tiptopDegree"/>
+        <result column="specialty" property="specialty"/>
+        <result column="school" property="school"/>
+        <result column="beginDate" property="beginDate"/>
+        <result column="workState" property="workState"/>
+        <result column="workID" property="workID"/>
+        <result column="contractTerm" property="contractTerm"/>
+        <result column="conversionTime" property="conversionTime"/>
+        <result column="notWorkDate" property="notWorkDate"/>
+        <result column="beginContract" property="beginContract"/>
+        <result column="endContract" property="endContract"/>
+        <result column="workAge" property="workAge"/>
+        <association property="department" javaType="cn.edu.bean.Department">
+            <id property="id" column="did"/>
+            <result property="name" column="dname"/>
+        </association>
+        <association property="jobLevel" javaType="cn.edu.bean.JobLevel">
+            <id property="id" column="jlid"/>
+            <result property="name" column="jlname"/>
+            <result property="titleLevel" column="jlTitleLevel"/>
+        </association>
+        <association property="nation" javaType="cn.edu.bean.Nation">
+            <id property="id" column="nid"/>
+            <result property="name" column="nname"/>
+        </association>
+        <association property="position" javaType="cn.edu.bean.Position">
+            <id property="id" column="pid"/>
+            <result property="name" column="pname"/>
+        </association>
+        <association property="politicsStatus" javaType="cn.edu.bean.PoliticsStatus">
+            <id property="id" column="psid"/>
+            <result property="name" column="psname"/>
+        </association>
+        <association property="salary" javaType="cn.edu.bean.Salary">
+            <id column="sid" jdbcType="INTEGER" property="id" />
+            <result column="bonus" jdbcType="INTEGER" property="bonus" />
+            <result column="lunchSalary" jdbcType="INTEGER" property="lunchSalary" />
+            <result column="trafficSalary" jdbcType="INTEGER" property="trafficSalary" />
+            <result column="basicSalary" jdbcType="INTEGER" property="basicSalary" />
+            <result column="allSalary" jdbcType="INTEGER" property="allSalary" />
+            <result column="pensionBase" jdbcType="INTEGER" property="pensionBase" />
+            <result column="pensionPer" jdbcType="REAL" property="pensionPer" />
+            <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+            <result column="medicalBase" jdbcType="INTEGER" property="medicalBase" />
+            <result column="medicalPer" jdbcType="REAL" property="medicalPer" />
+            <result column="accumulationFundBase" jdbcType="INTEGER" property="accumulationFundBase" />
+            <result column="accumulationFundPer" jdbcType="REAL" property="accumulationFundPer" />
+            <result column="sname" jdbcType="VARCHAR" property="name" />
+        </association>
+    </resultMap>
+    <select id="getDoctorByPage" resultMap="BaseResultMap">
+        select e.*,jl.`id` as jlid,jl.`name` as jlname,jl.`titleLevel` as jlTitleLevel,d.`id` as did,d.`name` as
+        dname,n.`id` as nid,n.`name` as nname,p.`id` as pid,p.`name` as pname,ps.`id` as psid,ps.`name` as psname from
+        doctor e,joblevel jl,department d,nation n,position p,politicsstatus ps where e.`posId`=p.`id` and
+        e.`jobLevelId`=jl.`id` and e.`departmentId`=d.id and e.`nationId`=n.`id` and e.`politicId`=ps.`id` and e.`name`
+        like concat('%',#{keywords},'%')
+        <if test="engageForm!=null and engageForm!=''">
+            AND e.engageForm=#{engageForm}
+        </if>
+        <if test="politicId!=null and politicId!=''">
+            AND e.politicId=#{politicId}
+        </if>
+        <if test="nationId!=null and nationId!=''">
+            AND e.nationId=#{nationId}
+        </if>
+        <if test="posId!=null and posId!=''">
+            AND e.posId=#{posId}
+        </if>
+        <if test="jobLevelId!=null and jobLevelId!=''">
+            AND e.jobLevelId=#{jobLevelId}
+        </if>
+        <if test="departmentId!=null and departmentId!=''">
+            AND e.departmentId=#{departmentId}
+        </if>
+        <if test="startBeginDate!=null and endBeginDate!=null">
+            AND e.beginDate BETWEEN #{startBeginDate} AND #{endBeginDate}
+        </if>
+        <if test="start!=null and size!=null">
+            order by e.id limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getCountByKeywords" resultType="Long">
+        SELECT count(*) FROM doctor e WHERE e.name LIKE concat('%',#{keywords},'%')
+        <if test="engageForm!=null and engageForm!=''">
+            AND e.engageForm=#{engageForm}
+        </if>
+        <if test="politicId!=null and politicId!=''">
+            AND e.politicId=#{politicId}
+        </if>
+        <if test="nationId!=null and nationId!=''">
+            AND e.nationId=#{nationId}
+        </if>
+        <if test="posId!=null and posId!=''">
+            AND e.posId=#{posId}
+        </if>
+        <if test="jobLevelId!=null and jobLevelId!=''">
+            AND e.jobLevelId=#{jobLevelId}
+        </if>
+        <if test="departmentId!=null and departmentId!=''">
+            AND e.departmentId=#{departmentId}
+        </if>
+        <if test="startBeginDate!=null and endBeginDate!=null">
+            AND e.beginDate BETWEEN #{startBeginDate} AND #{endBeginDate}
+        </if>
+    </select>
+    <update id="updateDoctor">
+        update doctor
+        <set>
+            <if test="doctor.name != null">
+                name = #{doctor.name,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.gender != null">
+                gender = #{doctor.gender,jdbcType=CHAR},
+            </if>
+            <if test="doctor.birthday != null">
+                birthday = #{doctor.birthday,jdbcType=DATE},
+            </if>
+            <if test="doctor.idCard != null">
+                idCard = #{doctor.idCard,jdbcType=CHAR},
+            </if>
+            <if test="doctor.wedlock != null">
+                wedlock = #{doctor.wedlock,jdbcType=CHAR},
+            </if>
+            <if test="doctor.nationId != null">
+                nationId = #{doctor.nationId,jdbcType=INTEGER},
+            </if>
+            <if test="doctor.nativePlace != null">
+                nativePlace = #{doctor.nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.politicId != null">
+                politicId = #{doctor.politicId,jdbcType=INTEGER},
+            </if>
+            <if test="doctor.email != null">
+                email = #{doctor.email,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.phone != null">
+                phone = #{doctor.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.address != null">
+                address = #{doctor.address,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.departmentId != null">
+                departmentId = #{doctor.departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="doctor.jobLevelId != null">
+                jobLevelId = #{doctor.jobLevelId,jdbcType=INTEGER},
+            </if>
+            <if test="doctor.posId != null">
+                posId = #{doctor.posId,jdbcType=INTEGER},
+            </if>
+            <if test="doctor.engageForm != null">
+                engageForm = #{doctor.engageForm,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.tiptopDegree != null">
+                tiptopDegree = #{doctor.tiptopDegree,jdbcType=CHAR},
+            </if>
+            <if test="doctor.specialty != null">
+                specialty = #{doctor.specialty,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.school != null">
+                school = #{doctor.school,jdbcType=VARCHAR},
+            </if>
+            <if test="doctor.beginDate != null">
+                beginDate = #{doctor.beginDate,jdbcType=DATE},
+            </if>
+            <if test="doctor.workState != null">
+                workState = #{doctor.workState,jdbcType=CHAR},
+            </if>
+            <if test="doctor.contractTerm != null">
+                contractTerm = #{doctor.contractTerm,jdbcType=DOUBLE},
+            </if>
+            <if test="doctor.conversionTime != null">
+                conversionTime = #{doctor.conversionTime,jdbcType=DATE},
+            </if>
+            <if test="doctor.notWorkDate != null">
+                notWorkDate = #{doctor.notWorkDate,jdbcType=DATE},
+            </if>
+            <if test="doctor.beginContract != null">
+                beginContract = #{doctor.beginContract,jdbcType=DATE},
+            </if>
+            <if test="doctor.endContract != null">
+                endContract = #{doctor.endContract,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{doctor.id,jdbcType=BIGINT}
+    </update>
+    <delete id="deleteDoctorById">
+        DELETE FROM doctor WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="addDoctors">
+        insert into doctor (name, gender,
+        birthday, idCard, wedlock, nationId,
+        nativePlace, politicId, email,
+        phone, address, departmentId,
+        jobLevelId, posId, engageForm,
+        tiptopDegree, specialty, school,
+        beginDate,workID,
+        contractTerm, conversionTime,
+        beginContract, endContract, workAge
+        )
+        values
+        <foreach collection="doctors" item="doctor" separator=",">
+            (#{doctor.name,jdbcType=VARCHAR}, #{doctor.gender,jdbcType=CHAR},
+            #{doctor.birthday,jdbcType=DATE}, #{doctor.idCard,jdbcType=CHAR}, #{doctor.wedlock,jdbcType=CHAR},
+            #{doctor.nationId,jdbcType=BIGINT},
+            #{doctor.nativePlace,jdbcType=VARCHAR}, #{doctor.politicId,jdbcType=BIGINT}, #{doctor.email,jdbcType=VARCHAR},
+            #{doctor.phone,jdbcType=VARCHAR}, #{doctor.address,jdbcType=VARCHAR}, #{doctor.departmentId,jdbcType=BIGINT},
+            #{doctor.jobLevelId,jdbcType=BIGINT}, #{doctor.posId,jdbcType=BIGINT}, #{doctor.engageForm,jdbcType=VARCHAR},
+            #{doctor.tiptopDegree,jdbcType=VARCHAR}, #{doctor.specialty,jdbcType=VARCHAR}, #{doctor.school,jdbcType=VARCHAR},
+            #{doctor.beginDate,jdbcType=DATE},#{doctor.workID,jdbcType=BIGINT},
+            #{doctor.contractTerm,jdbcType=BIGINT}, #{doctor.conversionTime,jdbcType=DATE},
+            #{doctor.beginContract,jdbcType=DATE}, #{doctor.endContract,jdbcType=DATE}, #{doctor.workAge,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <select id="getDoctorByPageShort" resultMap="BaseResultMap">
+select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from doctor e left join department d on e.`departmentId`=d.id left join doctorsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
+    </select>
+</mapper>
