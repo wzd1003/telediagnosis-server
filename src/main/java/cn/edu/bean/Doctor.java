@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author Devin
- * @description 医生
+ * @description 门诊医生
  * @create 2019/10/7
  */
 public class Doctor {

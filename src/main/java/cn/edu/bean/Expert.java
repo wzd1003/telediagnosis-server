@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author Devin
- * @description 专家
+ * @description 专家医生
  * @create 2019/10/7
  */
 public class Expert {

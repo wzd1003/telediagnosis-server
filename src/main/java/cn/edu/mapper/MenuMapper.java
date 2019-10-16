@@ -10,7 +10,7 @@ import java.util.List;
 public interface MenuMapper {
     List<Menu> getAllMenu();
 
-    List<Menu> getMenusByAdminId(Long adminId);
+    List<Menu> getMenusByUserId(Long adminId);
 
     List<Menu> menuTree();
 

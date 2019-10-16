@@ -3,7 +3,7 @@ package cn.edu.service;
 import cn.edu.bean.Admin;
 import cn.edu.bean.MsgContent;
 import cn.edu.bean.SysMsg;
-import cn.edu.common.AdminUtils;
+import cn.edu.common.UserUtils;
 import cn.edu.mapper.SysMsgMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +36,14 @@ public class SysMsgService {
 
     public List<SysMsg> getSysMsgByPage(Integer page, Integer size) {
         int start = (page - 1) * size;
-        return sysMsgMapper.getSysMsg(start,size, AdminUtils.getCurrentAdmin().getId());
+        return sysMsgMapper.getSysMsg(start,size, UserUtils.getCurrentUser().getId());
     }
 
     public boolean markRead(Long flag) {
         if (flag != -1) {
-            return sysMsgMapper.markRead(flag,AdminUtils.getCurrentAdmin().getId())==1;
+            return sysMsgMapper.markRead(flag,UserUtils.getCurrentUser().getId())==1;
         }
-        sysMsgMapper.markRead(flag,AdminUtils.getCurrentAdmin().getId());
+        sysMsgMapper.markRead(flag,UserUtils.getCurrentUser().getId());
         return true;
     }
 }

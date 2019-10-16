@@ -7,7 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by sang on 2018/1/13.
+ * @author Devin
+ * @description 日期格式化工具
+ * @create 2019/10/7
  */
 public class DateConverter implements Converter<String,Date> {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

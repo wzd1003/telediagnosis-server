@@ -1,7 +1,7 @@
 package cn.edu.service;
 
 import cn.edu.bean.Menu;
-import cn.edu.common.AdminUtils;
+import cn.edu.common.UserUtils;
 import cn.edu.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -18,8 +18,6 @@ import java.util.List;
 @CacheConfig(cacheNames = "menus_cache")
 public class MenuService {
 
-   // private Logger logger = LoggerFactory.getLogger(MenuService.class);
-
     @Autowired
     MenuMapper menuMapper;
 
@@ -28,8 +26,8 @@ public class MenuService {
         return menuMapper.getAllMenu();
     }
 
-    public List<Menu> getMenusByAdminId() {
-        return menuMapper.getMenusByAdminId(AdminUtils.getCurrentAdmin().getId());
+    public List<Menu> getMenusByUserId() {
+        return menuMapper.getMenusByUserId(UserUtils.getCurrentUser().getId());
     }
 
     public List<Menu> menuTree() {

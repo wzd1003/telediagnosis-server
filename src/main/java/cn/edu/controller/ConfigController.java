@@ -2,7 +2,7 @@ package cn.edu.controller;
 
 import cn.edu.bean.Admin;
 import cn.edu.bean.Menu;
-import cn.edu.common.AdminUtils;
+import cn.edu.common.UserUtils;
 import cn.edu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +19,16 @@ import java.util.List;
 public class ConfigController {
     @Autowired
     MenuService menuService;
+
+    //当前用户显示的菜单
     @RequestMapping("/sysmenu")
     public List<Menu> sysmenu() {
-        return menuService.getMenusByAdminId();
+        return menuService.getMenusByUserId();
     }
 
-    @RequestMapping("/hr")
+    //获得当前登录的用户
+    @RequestMapping("/currentUser")
     public Admin currentUser() {
-        return AdminUtils.getCurrentAdmin();
+        return UserUtils.getCurrentUser();
     }
 }

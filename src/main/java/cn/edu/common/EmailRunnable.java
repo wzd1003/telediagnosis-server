@@ -10,7 +10,9 @@ import org.thymeleaf.context.Context;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Created by sang on 2017/9/20.
+ * @author Devin
+ * @description 发送邮件通知工具
+ * @create 2019/10/7
  */
 public class EmailRunnable implements Runnable {
     private Patient patient;
@@ -33,7 +35,7 @@ public class EmailRunnable implements Runnable {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(patient.getEmail());
             helper.setFrom(emailAddress);
-            helper.setSubject("XXX集团：通知");
+            helper.setSubject("消息邮件通知");
             Context ctx = new Context();
             ctx.setVariable("name", patient.getName());
             ctx.setVariable("workID", patient.getWorkID());

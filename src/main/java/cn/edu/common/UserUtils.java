@@ -4,10 +4,12 @@ import cn.edu.bean.Admin;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Created by sang on 2017/12/30.
+ * @author Devin
+ * @description 获得当前用户工具
+ * @create 2019/10/7
  */
-public class AdminUtils {
-    public static Admin getCurrentAdmin() {
+public class UserUtils {
+    public static Admin getCurrentUser() {
         return (Admin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

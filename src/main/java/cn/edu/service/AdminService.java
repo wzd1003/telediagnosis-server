@@ -1,7 +1,7 @@
 package cn.edu.service;
 
 import cn.edu.bean.Admin;
-import cn.edu.common.AdminUtils;
+import cn.edu.common.UserUtils;
 import cn.edu.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,7 +64,7 @@ public class AdminService implements UserDetailsService {
     }
 
     public List<Admin> getAllAdminExceptAdmin() {
-        return adminMapper.getAllAdmin(AdminUtils.getCurrentAdmin().getId());
+        return adminMapper.getAllAdmin(UserUtils.getCurrentUser().getId());
     }
     public List<Admin> getAllAdmin() {
         return adminMapper.getAllAdmin(null);

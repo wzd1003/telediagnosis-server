@@ -1,7 +1,7 @@
 package cn.edu.config;
 
 import cn.edu.bean.RespBean;
-import cn.edu.common.AdminUtils;
+import cn.edu.common.UserUtils;
 import cn.edu.service.AdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         HttpServletResponse resp,
                                                         Authentication auth) throws IOException {
                         resp.setContentType("application/json;charset=utf-8");
-                        RespBean respBean = RespBean.ok("登录成功!", AdminUtils.getCurrentAdmin());
+                        RespBean respBean = RespBean.ok("登录成功!", UserUtils.getCurrentUser());
                         ObjectMapper om = new ObjectMapper();
                         PrintWriter out = resp.getWriter();
                         out.write(om.writeValueAsString(respBean));
