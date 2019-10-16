@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by sang on 2018/1/2.
+ * @author Devin
+ * @description 异常处理类
+ * @create 2019/10/7
  */
 @Component
 public class CustomExceptionResolver implements HandlerExceptionResolver {
