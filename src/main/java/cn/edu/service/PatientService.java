@@ -43,9 +43,9 @@ public class PatientService {
         return patientMapper.addPatient(patient);
     }
 
-    public Long getMaxWorkID() {
-        Long maxWorkID = patientMapper.getMaxWorkID();
-        return maxWorkID == null ? 0 : maxWorkID;
+    public Long getMaxHealthyID() {
+        Long maxHealthyID = patientMapper.getMaxHealthyID();
+        return maxHealthyID == null ? 0 : maxHealthyID;
     }
 
     public List<Patient> getPatientByPage(Integer page, Integer size, String keywords, Long politicId, Long nationId, Long posId, Long jobLevelId, String engageForm, Long departmentId, String beginDateScope) {

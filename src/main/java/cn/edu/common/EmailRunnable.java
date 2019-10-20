@@ -38,7 +38,7 @@ public class EmailRunnable implements Runnable {
             helper.setSubject("消息邮件通知");
             Context ctx = new Context();
             ctx.setVariable("name", patient.getName());
-            ctx.setVariable("workID", patient.getWorkID());
+            ctx.setVariable("workID", patient.getHealthyID());
             ctx.setVariable("contractTerm", patient.getContractTerm());
             ctx.setVariable("beginContract", patient.getBeginContract());
             ctx.setVariable("endContract", patient.getEndContract());

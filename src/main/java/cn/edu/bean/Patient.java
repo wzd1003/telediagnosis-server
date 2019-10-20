@@ -13,7 +13,7 @@ public class Patient {
     private String gender;
     private Date birthday;
     private String idCard;
-    private String wedlock;
+    private String brief ;
     private Long nationId;
     private String nationName;
     private String nativePlace;
@@ -34,7 +34,7 @@ public class Patient {
     private String school;
     private Date beginDate;
     private String workState;
-    private String workID;
+    private String healthyID;
     private Double contractTerm;
     private Date conversionTime;
     private Date notWorkDate;
@@ -48,20 +48,8 @@ public class Patient {
     private PoliticsStatus politicsStatus;
     private Salary salary;
     //
-    private String hospitalID;
-    private String phone2;
-    private String inHospital;
-    private Date telediagnosisTime;
-    private String brief;
     private String detils;
 
-    public String getWedlock() {
-        return wedlock;
-    }
-
-    public void setWedlock(String wedlock) {
-        this.wedlock = wedlock;
-    }
 
     public Long getNationId() {
         return nationId;
@@ -167,12 +155,12 @@ public class Patient {
         this.workState = workState;
     }
 
-    public String getWorkID() {
-        return workID;
+    public String getHealthyID() {
+        return healthyID;
     }
 
-    public void setWorkID(String workID) {
-        this.workID = workID;
+    public void setHealthyID(String healthyID) {
+        this.healthyID = healthyID;
     }
 
     public Double getContractTerm() {
@@ -251,14 +239,6 @@ public class Patient {
         return id;
     }
 
-    public String getHospitalID() {
-        return hospitalID;
-    }
-
-    public void setHospitalID(String hospitalID) {
-        this.hospitalID = hospitalID;
-    }
-
     public String getName() {
         return name;
     }
@@ -315,14 +295,6 @@ public class Patient {
         this.phone = phone;
     }
 
-    public String getPhone2() {
-        return phone2;
-    }
-
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
-    }
-
     public Department getDepartment() {
         return department;
     }
@@ -347,14 +319,6 @@ public class Patient {
         this.departmentName = departmentName;
     }
 
-    public String getInHospital() {
-        return inHospital;
-    }
-
-    public void setInHospital(String inHospital) {
-        this.inHospital = inHospital;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -369,14 +333,6 @@ public class Patient {
 
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
-    }
-
-    public Date getTelediagnosisTime() {
-        return telediagnosisTime;
-    }
-
-    public void setTelediagnosisTime(Date telediagnosisTime) {
-        this.telediagnosisTime = telediagnosisTime;
     }
 
     public Date getBeginContract() {

@@ -169,13 +169,13 @@ public class PoiUtils {
                 Patient patient = patients.get(i);
                 row.createCell(0).setCellValue(patient.getId());
                 row.createCell(1).setCellValue(patient.getName());
-                row.createCell(2).setCellValue(patient.getWorkID());
+                row.createCell(2).setCellValue(patient.getHealthyID());
                 row.createCell(3).setCellValue(patient.getGender());
                 HSSFCell birthdayCell = row.createCell(4);
                 birthdayCell.setCellValue(patient.getBirthday());
                 birthdayCell.setCellStyle(dateCellStyle);
                 row.createCell(5).setCellValue(patient.getIdCard());
-                row.createCell(6).setCellValue(patient.getWedlock());
+                row.createCell(6).setCellValue(patient.getBrief());
                 row.createCell(7).setCellValue(patient.getNation().getName());
                 row.createCell(8).setCellValue(patient.getNativePlace());
                 row.createCell(9).setCellValue(patient.getPoliticsStatus().getName());
@@ -251,7 +251,7 @@ public class PoiUtils {
                     patient.setName(cellValue);
                     break;
                 case 2:
-                    patient.setWorkID(cellValue);
+                    patient.setHealthyID(cellValue);
                     break;
                 case 3:
                     patient.setGender(cellValue);
@@ -260,7 +260,7 @@ public class PoiUtils {
                     patient.setIdCard(cellValue);
                     break;
                 case 6:
-                    patient.setWedlock(cellValue);
+                    patient.setBrief(cellValue);
                     break;
                 case 7:
                     int nationIndex = allNations.indexOf(new Nation(cellValue));

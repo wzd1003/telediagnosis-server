@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,16 +17,21 @@ import java.util.List;
  */
 public class Admin implements UserDetails {
     private Long id;
-    private String name;
-    private String phone;
+    private String username;//用户名
+    private String password;//密码
+    private String name;//姓名
+    private String gender;
+    private Date birthday;
     private String telephone;
     private String address;
+    private String brief ;
+
     private boolean enabled;
-    private String username;
-    private String password;
     private String remark;
     private List<Role> roles;
     private String userface;
+
+
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -96,14 +102,6 @@ public class Admin implements UserDetails {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getTelephone() {
         return telephone;
     }
@@ -123,7 +121,6 @@ public class Admin implements UserDetails {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
 
     public void setUsername(String username) {
         this.username = username;

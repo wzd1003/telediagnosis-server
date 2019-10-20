@@ -53,13 +53,13 @@ public class PatientBasicController {
         map.put("deps", departmentService.getDepByPid(-1L));
         map.put("positions", positionService.getAllPos());
         map.put("joblevels", jobLevelService.getAllJobLevels());
-        map.put("workID", String.format("%08d", patientService.getMaxWorkID() + 1));
+        map.put("healthyID", String.format("%08d", patientService.getMaxHealthyID() + 1));
         return map;
     }
 
-    @RequestMapping("/maxWorkID")
-    public String maxWorkID() {
-        return String.format("%08d", patientService.getMaxWorkID() + 1);
+    @RequestMapping("/maxHealthyID")
+    public String maxHealthyID() {
+        return String.format("%08d", patientService.getMaxHealthyID() + 1);
     }
 
     @RequestMapping(value = "/patient", method = RequestMethod.POST)
